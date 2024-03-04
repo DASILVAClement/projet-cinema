@@ -1,6 +1,4 @@
 <?php
-// Récupérer la liste des étudiants dans la table etudiant
-
 // 1. Connexion à la base de donnée db_intro
 /**
  * @var PDO $pdo
@@ -16,17 +14,8 @@ $requete->execute();
 // 4. Récupération des enregistrements
 // 1 enregistrement = 1 tableau associatif
 $films = $requete->fetchAll(PDO::FETCH_ASSOC);
+include_once "fonction.php"
 ?>
-<?php
-function convertirEnHeuresMinutes($dureeEnMinutes)
-{
-    $heures = floor($dureeEnMinutes / 60);
-    $minutes = $dureeEnMinutes % 60;
-    return "$heures h $minutes min";
-}
-
-?>
-
 
 <!doctype html>
 <html lang="fr">
@@ -37,31 +26,22 @@ function convertirEnHeuresMinutes($dureeEnMinutes)
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>FILM.COM</title>
 </head>
 <body class="">
-<header>
-    <nav class="navbar navbar-expand-md bg-body-tertiary">
-        <div class="container-fluid">
-            <h2>FILM.com</h2>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-</header>
+
+<?php include_once 'menu.php'?>
+
 <main>
-    <div class="container">
-        <div class="row">
+    <div class="container text-center">
+        <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
-                <div class="card col-6 col-lg-4 mt-4 mb-4">
+                <div class="container card col-xs-12 col-md-6 col-lg-4 col-xl-3 mt-4 mb-4 " style="width: 18rem">
                     <div class="card-body text-center">
-                        <h3><?= $film["titre_film"] ?></h3>
+                        <h3 class="fs-4 fw-bold"><?= $film["titre_film"] ?></h3>
                         <img src="<?= $film["image_film"] ?>" alt="<?= $film["titre_film"] ?>" class="img-fluid"><br>
-                        <h6 class="card-title mt-2"><?= convertirEnHeuresMinutes($film["duree_film"]) ?></h6>
-                        <a href="detail_film.php" class="btn border border-warning text-warning">En
+                        <h6 class="card-title mt-2 fst-italic"><?= convertirEnHeuresMinutes($film["duree_film"]) ?></h6>
+                        <a href="detail_film.php?id_film=<?=$film["id_film"]?>" class="btn bg-warning">En
                             savoir plus</a>
                     </div>
                 </div>
