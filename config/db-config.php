@@ -1,7 +1,7 @@
 <?php
 //Définir les informations de connexion
 const DB_HOST = "localhost:3306";
-const DB_NAME = "db_intro";
+const DB_NAME = "db_cinema";
 const DB_USER = "root";
 const DB_PASSWORD = "";
 

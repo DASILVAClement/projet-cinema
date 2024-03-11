@@ -3,7 +3,7 @@ if (isset($_GET['id_film'])) {
 $id_film = $_GET['id_film'];
 
 // 1. Connexion à la base de donnée db_intro
-require './config/db-config.php';
+require 'config/db-config.php';
 
 // 2. Préparation de la requête
 $requete = $pdo->prepare(query: "SELECT * FROM film WHERE id_film = :id");
