@@ -23,14 +23,8 @@
                         <a class="nav-link active" aria-current="page"
                            href="formulaire.php">Formulaire</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#avis">Avis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
                     <li class="nav-item rounded-3">
-                        <a href="#tarifs" class="btn btn-warning">Acheter Maintenant</a>
+                        <a href="index.php" type="button" class="btn btn-outline-dark">Retour à l'accueil</a>
                     </li>
                 </ul>
             </div>

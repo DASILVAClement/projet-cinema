@@ -36,7 +36,7 @@ include_once "fonction.php"
     <div class="container text-center">
         <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
-                <div class="container card col-xs-12 col-md-6 col-lg-4 col-xl-3 mt-4 mb-4 " style="width: 18rem">
+                <div class="container card col-xs-12 col-md-6 col-lg-4 col-xl-3 mt-4 mb-4 border border-dark border-2" style="width: 18rem">
                     <div class="card-body text-center">
                         <h3 class="fs-4 fw-bold"><?= $film["titre_film"] ?></h3>
                         <img src="<?= $film["image_film"] ?>" alt="<?= $film["titre_film"] ?>" class="img-fluid"><br>

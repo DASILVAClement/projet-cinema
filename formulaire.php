@@ -80,12 +80,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Formulaire</title>
 </head>
 <body>
 <!--Insertion d'un menu-->
 <?php include_once 'menu.php' ?>
-<h1 class="text-center text-light">Création d'un film</h1>
+<h1 class="text-center text-dark">Entrer le film de votre choix !</h1>
 <div class="container d-flex">
     <div class="w-50 mx-auto shadow my-5 p-4 bg-warning ">
         <form action="" method="post" novalidate>
