@@ -20,11 +20,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                           href="formulaire.php">Formulaire</a>
+                        <a class="nav-link active" aria-current="page" href="formulaire.php">Ajouter un film</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="connexion_compte.php">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="creation_compte.php">Inscription</a>
                     </li>
                     <li class="nav-item rounded-3">
-                        <a href="index.php" type="button" class="btn btn-outline-dark">Retour à l'accueil</a>
+                        <a href="index.php" type="button" class="btn btn-outline-dark border-2 fs-5">Retour à l'accueil</a>
                     </li>
                 </ul>
             </div>

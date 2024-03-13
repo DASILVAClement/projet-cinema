@@ -86,9 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 <!--Insertion d'un menu-->
 <?php include_once 'menu.php' ?>
-<h1 class="text-center text-dark">Entrer le film de votre choix !</h1>
-<div class="container d-flex">
-    <div class="w-50 mx-auto shadow my-5 p-4 bg-warning ">
+
+<div class="container">
+    <h1 class="text-dark border-2 border-bottom border-warning">Ajouter un film</h1>
+    <div class="w-50 mx-auto shadow my-5 p-4 bg-warning rounded-3">
         <form action="" method="post" novalidate>
             <div class="mb-3">
                 <label for="titre_film" class="form-label">Titre*</label>
@@ -155,7 +156,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit" class="btn btn-light">Valider</button>
         </form>
     </div>
-</div>
 </div>
 
 
