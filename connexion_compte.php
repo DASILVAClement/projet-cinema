@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Formulaire</title>
 </head>
-<body>
+<body class="bg-dark">
 
 <?php include_once 'menu.php' ?>
 
 <div class="container ">
-    <h1 class="text-dark border-2 border-bottom border-warning">Connexion à votre compte </h1>
+    <h1 class="text-white border-2 border-bottom border-warning">Connexion à votre compte </h1>
     <div class="w-50 mx-auto shadow my-5 p-4 bg-warning rounded-5">
         <form action="" method="post" novalidate="">
 
@@ -58,4 +58,5 @@
 
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-</body></html>
+</body>
+</html>

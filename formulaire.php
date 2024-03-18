@@ -83,13 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Formulaire</title>
 </head>
-<body>
+<body class="bg-dark">
 <!--Insertion d'un menu-->
 <?php include_once 'menu.php' ?>
 
 <div class="container">
-    <h1 class="text-dark border-2 border-bottom border-warning">Ajouter un film</h1>
-    <div class="w-50 mx-auto shadow my-5 p-4 bg-warning rounded-3">
+    <h1 class="text-white border-2 border-bottom border-warning">Ajouter un film</h1>
+    <div class="w-50 mx-auto shadow my-5 p-4 bg-warning rounded-5">
         <form action="" method="post" novalidate>
             <div class="mb-3">
                 <label for="titre_film" class="form-label">Titre*</label>

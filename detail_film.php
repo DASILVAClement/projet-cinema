@@ -28,11 +28,11 @@ require 'fonction.php'
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Document</title>
 </head>
-<body class="">
+<body class="bg-dark">
 
 <?php include_once "menu.php" ?>
 
-<div class="container shadow">
+<div class="container bg-white rounded-3">
     <h1 class=" border-bottom border-3 border-warning mt-4">Les Détails du film</h1>
     <div class="table d-flex text-center">
         <div class="mt-3 ">
@@ -57,5 +57,6 @@ require 'fonction.php'
     </div>
 </div>
 
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
