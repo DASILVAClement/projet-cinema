@@ -3,7 +3,7 @@
 /**
  * @var PDO $pdo
  */
-require "config/db-config.php";
+require "../src/config/db-config.php";
 
 // 2. Préparation la requête
 $requete = $pdo->prepare("SELECT * FROM film");
@@ -14,7 +14,7 @@ $requete->execute();
 // 4. Récupération des enregistrements
 // 1 enregistrement = 1 tableau associatif
 $films = $requete->fetchAll(PDO::FETCH_ASSOC);
-include_once "fonction.php"
+include_once "fonction_duree.php"
 ?>
 
 <!doctype html>
@@ -26,11 +26,13 @@ include_once "fonction.php"
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
     <title>FILM.COM</title>
 </head>
 <body class="bg-dark">
 
-<?php include_once 'menu.php'?>
+<!--Menu-->
+<?php include_once '../src/_partials/header.php' ?>
 
 <main>
     <div class="container">
@@ -51,6 +53,6 @@ include_once "fonction.php"
     </div>
 </main>
 
-<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
