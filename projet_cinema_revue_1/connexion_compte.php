@@ -9,7 +9,7 @@
 <body class="bg-dark">
 
 <!--Menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php include_once '_partials/header.php' ?>
 
 <div class="container ">
     <h1 class="text-white border-2 border-bottom border-warning">Connexion à votre compte </h1>

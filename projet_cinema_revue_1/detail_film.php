@@ -6,7 +6,7 @@ $id_film = $_GET['id_film'];
 /**
  * @var PDO $pdo
  */
-require '../src/config/db-config.php';
+require 'config/db-config.php';
 
 // 2. Préparation de la requête
 $requete = $pdo->prepare(query: "SELECT * FROM film WHERE id_film = :id");
@@ -29,12 +29,13 @@ require 'fonction_duree.php'
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="index.css">
     <title>Film.com</title>
 </head>
 <body class="bg-dark">
 
 <!--Menu-->
-<?php include_once "../src/_partials/header.php" ?>
+<?php include_once "_partials/header.php" ?>
 
 <div class="container bg-white rounded-3">
     <h1 class=" border-bottom border-3 border-warning mt-4">Les Détails du film </h1>
@@ -55,6 +56,8 @@ require 'fonction_duree.php'
             } else {
                 echo "Film introuvable";
             }
+            } else {
+                echo "Film introuvable";
             }
             ?>
         </div>

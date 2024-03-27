@@ -3,7 +3,7 @@
 /**
  * @var PDO $pdo
  */
-require "../src/config/db-config.php";
+require "config/db-config.php";
 
 // 2. Préparation la requête
 $requete = $pdo->prepare("SELECT * FROM film");
@@ -32,7 +32,7 @@ include_once "fonction_duree.php"
 <body class="bg-dark">
 
 <!--Menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php include_once '_partials/header.php' ?>
 
 <main>
     <div class="container">

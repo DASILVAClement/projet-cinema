@@ -3,7 +3,7 @@
 /**
  * @var PDO $pdo
  */
-require '../src/config/db-config.php';
+require 'config/db-config.php';
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body class="bg-dark">
 
 <!--Menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php include_once '_partials/header.php' ?>
 
 <div class="container">
     <h1 class="text-white border-2 border-bottom border-warning">Ajouter un film</h1>
