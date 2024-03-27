@@ -1,8 +1,6 @@
 <?php
+session_start();
 
-/**
- * @var PDO $pdo
- */
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/utilisateur-db.php';
 
@@ -39,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['mdp_utilisateur'] = "Le mot de passe est obligatoire";
         $erreurs['mdp_verification'] = "Le mot de passe est obligatoire";
     }
-    if (strlen($mdp_utilisateur)<=8){
+    if (strlen($mdp_utilisateur) <= 8) {
         $erreurs['mdp_utilisateur'] = "Le mot de passe ne contient pas assez de caractères";
         $erreurs['mdp_verification'] = "Le mot de passe ne contient pas assez de caractères";
     }
 
-    if (strlen($mdp_utilisateur)>=14){
+    if (strlen($mdp_utilisateur) >= 14) {
         $erreurs['mdp_utilisateur'] = "Le mot de passe contient trop de caractères";
         $erreurs['mdp_verification'] = "Le mot de passe contient trop de caractères";
     }
@@ -65,14 +63,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['email_utilisateur'] = "L'email saisie est déjà utilisé";
     } else {
 
-    // Traiter les données
-    if (empty($erreurs)) {
+        // Traiter les données
+        if (empty($erreurs)) {
 
-        getUser($pseudo_utilisateur, $email_utilisateur,$mdp_utilisateur);
+            getUser($pseudo_utilisateur, $email_utilisateur, $mdp_utilisateur);
 
-        header("Location: ../index.php");
-        exit();
-    }
+            header("Location: ../index.php");
+            exit();
+        }
     }
 }
 ?>
@@ -128,7 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="pseudo_utilisateur" class="form-label">Pseudo*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['pseudo_utilisateur'])) ? "border border-2 border-danger" : "" ?>"
-                       id="pseudo_utilisateur" name="pseudo_utilisateur" value="<?= $pseudo_utilisateur ?>" placeholder="Saisir votre pseudo "
+                       id="pseudo_utilisateur" name="pseudo_utilisateur" value="<?= $pseudo_utilisateur ?>"
+                       placeholder="Saisir votre pseudo "
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['pseudo_utilisateur'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['pseudo_utilisateur'] ?></p>
@@ -146,40 +145,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <p class="form-text text-danger"><?= $erreurs['email_utilisateur'] ?></p>
                 <?php endif; ?>
             </div>
-    <div class="mb-3">
+            <div class="mb-3">
                 <label for="mdp_utilisateur" class="form-label">Mot de passe*</label>
 
-        <button type="button" class="btn mb-1" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-            <i class="bi bi-info-circle"></i>
-        </button>
+                <button type="button" class="btn mb-1" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    <i class="bi bi-info-circle"></i>
+                </button>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-warning">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Les caractéristiques de votre mot de passe </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul>
-                            <li>
-                                Votre mot de passe doit contenir entre 8 et 14 caractères
-                            </li>
-                            <li>
-                                Il doit contenir au moins une minuscule, une majuscule et un chiffre et un caractère spécial
-                            </li>
-                        </ul>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Les caractéristiques de votre mot de
+                                    passe </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    <li>
+                                        Votre mot de passe doit contenir entre 8 et 14 caractères
+                                    </li>
+                                    <li>
+                                        Il doit contenir au moins une minuscule, une majuscule et un chiffre et un
+                                        caractère spécial
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
                 <input type="password"
                        class="form-control <?= (isset($erreurs['mdp_utilisateur'])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdp_utilisateur" name="mdp_utilisateur" value="<?= $mdp_utilisateur ?>" placeholder="Saisir votre mot de passe"
+                       id="mdp_utilisateur" name="mdp_utilisateur" value="<?= $mdp_utilisateur ?>"
+                       placeholder="Saisir votre mot de passe"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['mdp_utilisateur'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp_utilisateur'] ?></p>
@@ -190,7 +192,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="mdp_verification" class="form-label">Confirmez votre mot de passe*</label>
                 <input type="password"
                        class="form-control <?= (isset($erreurs['mdp_verification'])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdp_verification" name="mdp_verification" value="<?= $mdp_verification ?>" placeholder="Confirmez votre mot de passe"
+                       id="mdp_verification" name="mdp_verification" value="<?= $mdp_verification ?>"
+                       placeholder="Confirmez votre mot de passe"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['mdp_verification'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp_verification'] ?></p>

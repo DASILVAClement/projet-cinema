@@ -1,8 +1,6 @@
 <?php
+session_start();
 
-/**
- * @var PDO $pdo
- */
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
 
@@ -88,7 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="titre_film" class="form-label">Titre*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['titre_film'])) ? "border border-2 border-danger" : "" ?>"
-                       id="titre_film" name="titre_film" value="<?= $titre_film ?>" placeholder="Saisir le titre du film"
+                       id="titre_film" name="titre_film" value="<?= $titre_film ?>"
+                       placeholder="Saisir le titre du film"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['titre_film'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['titre_film'] ?></p>
@@ -109,7 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="resume_film" class="form-label">Resumé*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['resume_film'])) ? "border border-2 border-danger" : "" ?>"
-                       id="resume_film" name="resume_film" value="<?= $resume_film ?>" placeholder="Saisir le résumé du film"
+                       id="resume_film" name="resume_film" value="<?= $resume_film ?>"
+                       placeholder="Saisir le résumé du film"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['resume_film'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['resume_film'] ?></p>
@@ -140,7 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="image_film" class="form-label">Image*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['image_film'])) ? "border border-2 border-danger" : "" ?>"
-                       id="image_film" name="image_film" value="<?= $image_film ?>" placeholder="Saisir un lien pour l'image du film"
+                       id="image_film" name="image_film" value="<?= $image_film ?>"
+                       placeholder="Saisir un lien pour l'image du film"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['image_film'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['image_film'] ?></p>

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if (isset($_GET['id_film'])) {
 $id_film = $_GET['id_film'];
 
@@ -32,15 +34,19 @@ require_once BASE_PROJET . '/src/fonction/fonction_duree.php';
         <div class="mt-3 ">
             <?php
             if ($film = getDetail($id_film)) { ?>
-            <img src="<?=$film['image_film']?>" alt='' height='300'>
+            <img src="<?= $film['image_film'] ?>" alt='' height='300'>
         </div>
         <div class="mt-3 text-black bg-white  p-4 text-start">
-            <p><i class="bi bi-camera-reels-fill"></i><span class='fw-bold'>Titre du film : </span><?=$film['titre_film']?></p>
-            <p><i class="bi bi-clock-fill"></i><span class="fw-bold">Durée du film :</span> <?=convertirEnHeuresMinutes($film['duree_film'])?></p>
-            <p><i class="bi bi-calendar"></i><span class="fw-bold">Date de sortie :</span><?=date("d/m/Y", strtotime($film['date_sortie']))?></p>
-            <p><i class="bi bi-flag-fill"></i><span class="fw-bold">Pays de production :</span><?=$film['pays_sortie']?></p>
+            <p><i class="bi bi-camera-reels-fill"></i><span
+                        class='fw-bold'>Titre du film : </span><?= $film['titre_film'] ?></p>
+            <p><i class="bi bi-clock-fill"></i><span
+                        class="fw-bold">Durée du film :</span> <?= convertirEnHeuresMinutes($film['duree_film']) ?></p>
+            <p><i class="bi bi-calendar"></i><span
+                        class="fw-bold">Date de sortie :</span><?= date("d/m/Y", strtotime($film['date_sortie'])) ?></p>
+            <p><i class="bi bi-flag-fill"></i><span
+                        class="fw-bold">Pays de production :</span><?= $film['pays_sortie'] ?></p>
             <h5 class="fw-semibold">Synopsis du film :</h5>
-            <p class="fst-italic"><?=$film['resume_film']?></p>
+            <p class="fst-italic"><?= $film['resume_film'] ?></p>
             <?php
             } else {
                 echo "<p>Film introuvable</p>";

@@ -20,3 +20,12 @@ function getEmail($email_utilisateur): array
     $user = $requete->fetchAll(PDO::FETCH_ASSOC);
     return $user;
 }
+
+function getComptes() : array
+{
+    $pdo = getConnexion();
+    $requete = $pdo->prepare("SELECT * FROM utilisateur");
+    $requete->execute();
+    $user = $requete->fetchAll(PDO::FETCH_ASSOC);
+    return $user;
+}
