@@ -9,7 +9,7 @@ if (empty($_SESSION)) {
 }
 $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
-    $utilisateur=$_SESSION["utilisateur"];
+    $utilisateur = $_SESSION["utilisateur"];
 }
 
 // Déterminer si le formulaire a été soumis
@@ -70,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 
-
 ?>
 
 <!doctype html>
@@ -87,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body class="bg-dark">
 
+
 <?php
 require_once BASE_PROJET . '/src/_partials/header.php';
 ?>
@@ -94,7 +94,7 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 <div class="container">
 
     <?php if ($utilisateur) : ?>
-        <p class="text-white mt-3" >Bienvenue <?= $utilisateur["pseudo_utilisateur"] ?> </p>
+        <p class="text-white mt-3">Bienvenue <?= $utilisateur["pseudo_utilisateur"] ?> </p>
     <?php endif; ?>
 
     <h1 class="text-white border-2 border-bottom border-warning">Ajouter un film</h1>
@@ -193,7 +193,6 @@ require_once BASE_PROJET . '/src/_partials/header.php';
         </form>
     </div>
 </div>
-
 
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>

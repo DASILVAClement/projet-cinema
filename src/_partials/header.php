@@ -1,9 +1,11 @@
 <header>
     <nav class="navbar navbar-expand-md bg-black border-bottom border-warning border-4">
         <div class="container-fluid">
+
             <h2 class="text-warning"><i class="bi bi-film"></i> <a href="<?php BASE_PROJET ?> /index.php"
                                                                    class="text-decoration-none text-warning">FILM.com</a>
             </h2>
+
             <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,6 +13,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
+
                     <?php if (empty($_SESSION)) : ?>
                         <li>
                             <a class="nav-link " href="<?php BASE_PROJET ?>/index.php">
@@ -53,8 +56,13 @@
                             </a>
                         </li>
                     <?php endif; ?>
+
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+

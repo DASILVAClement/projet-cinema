@@ -4,6 +4,9 @@ require_once '../base.php';
 require_once BASE_PROJET . '/src/database/user-db.php';
 
 
+// Déterminer si le formulaire a été soumis
+// Utilisation d'une variable superglobale $_SERVER
+// $_SERVER : tableau associatif contenant des informations sur la requête HTTP
 $erreurs = [];
 $pseudo_utilisateur = "";
 $email_utilisateur = "";
@@ -16,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email_utilisateur = $_POST['email_utilisateur'];
     $mdp_utilisateur = $_POST['mdp_utilisateur'];
     $mdp_verification = $_POST['mdp_verification'];
-    print_r($_POST);
     //Validation des données
     if (empty($pseudo_utilisateur)) {
         $erreurs['pseudo_utilisateur'] = "Le pseudo est obligatoire";
@@ -79,9 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body class="bg-dark">
 
+
 <?php
 require_once BASE_PROJET . '/src/_partials/header.php';
 ?>
+
 
 <div class="container">
 
