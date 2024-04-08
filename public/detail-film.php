@@ -3,7 +3,7 @@ session_start();
 
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
-require_once BASE_PROJET . '/src/database/user-db.php';
+require_once BASE_PROJET . '/src/database/utilisateur-db.php';
 require_once BASE_PROJET . '/src/fonction/fonction_duree.php';
 
 $id_film = null;
@@ -44,49 +44,81 @@ require_once BASE_PROJET . '/src/_partials/header.php';
     <?php endif; ?>
 </div>
 
-<div class="container bg-white rounded-3">
+<main>
+    <div class="container bg-white rounded-3">
 
-    <h1 class="border-bottom border-3 border-warning mt-4">Les Détails du film</h1>
-    <div class="table d-flex text-center">
-        <div class="mt-3">
+        <h1 class="border-bottom border-3 border-warning mt-4">Les Détails du film</h1>
+        <div class="table d-flex text-center">
+            <div class="mt-3">
 
-            <?php
-            if ($film = $id) : ?>
-            <img src="<?= $film['image_film'] ?>" alt='' height='300'>
+                <?php
+                if ($film = $id) : ?>
+                <img src="<?= $film['image_film'] ?>" alt='' height='300'>
+
+            </div>
+
+            <div class="mt-3 text-black bg-white p-4 text-start">
+
+                <p><i class="bi bi-camera-reels-fill"></i><span
+                            class='fw-bold'>Titre du film : </span><?= $film['titre_film'] ?></p>
+
+                <p><i class="bi bi-clock-fill"></i><span
+                            class="fw-bold">Durée du film :</span> <?= convertirEnHeuresMinutes($film['duree_film']) ?>
+                </p>
+
+                <p><i class="bi bi-calendar"></i><span
+                            class="fw-bold">Date de sortie :</span><?= date("d/m/Y", strtotime($film['date_sortie'])) ?>
+                </p>
+
+                <p><i class="bi bi-flag-fill"></i><span
+                            class="fw-bold">Pays de production :</span><?= $film['pays_sortie'] ?></p>
+
+                <h5 class="fw-semibold">Synopsis du film :</h5>
+                <p class="fst-italic"><?= $film['resume_film'] ?></p>
+
+                <p class='fw-bold'>Film crée par : </p><?php $utilisateur = getPseudo($film['id_utilisateur']);
+                echo $utilisateur["pseudo_utilisateur"];
+                elseif (getFilmId($id_film) == null) : ?>
+
+            </div>
+
+            <div>
+                <div>Film introuvable...</div>
+            </div>
+
+            <?php endif; ?>
 
         </div>
-
-        <div class="mt-3 text-black bg-white p-4 text-start">
-
-            <p><i class="bi bi-camera-reels-fill"></i><span
-                        class='fw-bold'>Titre du film : </span><?= $film['titre_film'] ?></p>
-
-            <p><i class="bi bi-clock-fill"></i><span
-                        class="fw-bold">Durée du film :</span> <?= convertirEnHeuresMinutes($film['duree_film']) ?></p>
-
-            <p><i class="bi bi-calendar"></i><span
-                        class="fw-bold">Date de sortie :</span><?= date("d/m/Y", strtotime($film['date_sortie'])) ?></p>
-
-            <p><i class="bi bi-flag-fill"></i><span
-                        class="fw-bold">Pays de production :</span><?= $film['pays_sortie'] ?></p>
-
-            <h5 class="fw-semibold">Synopsis du film :</h5>
-            <p class="fst-italic"><?= $film['resume_film'] ?></p>
-
-            <p class='fw-bold'>Film crée par : </p><?php $utilisateur = getPseudo($film['id_utilisateur']);
-            echo $utilisateur["pseudo_utilisateur"];
-            elseif (getFilmId($id_film) == null) : ?>
-
-        </div>
-
-        <div>
-            <div>Film introuvable...</div>
-        </div>
-
-        <?php endif; ?>
-
     </div>
-</div>
+</main>
+
+<main>
+    <div class="container bg-white rounded-3">
+
+        <h1 class="border-bottom border-3 border-warning mt-4">Commentaires</h1>
+        <div class="table d-flex text-center">
+            <?php if (empty($_SESSION)) : ?>
+
+
+                <a class="nav-link" href="<?php BASE_PROJET ?>/connexion-compte.php">
+                    <button type="button" class="btn btn-warning border-2 text-black rounded-3">Connecté pour
+                        ajouter un commentaire
+                    </button>
+                </a>
+
+
+            <?php else : ?>
+
+                <a class="nav-link " href="<?php BASE_PROJET ?>/ajout-commentaire.php">
+                    <button type="button" class="btn btn-warning border-2 text-black rounded-3">Ajouter un commentaire
+                    </button>
+                </a>
+
+            <?php endif; ?>
+
+        </div>
+</main>
+
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -7,6 +7,7 @@ session_start();
 if (empty($_SESSION)) {
     header("Location: index.php");
 }
+
 $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
     $utilisateur = $_SESSION["utilisateur"];
