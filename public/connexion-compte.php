@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/user-db.php';
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         "pseudo_utilisateur" => $donne_user["pseudo_utilisateur"],
                         "id_utilisateur" => $donne_user["id_utilisateur"]
                     ];
-                    header("Location: ../index.php");
+                    header("Location: /index.php");
                     exit();
                 } else {
                     $erreurs['email_utilisateur'] = "identifiants incorrects";

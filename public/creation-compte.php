@@ -4,24 +4,19 @@ require_once '../base.php';
 require_once BASE_PROJET . '/src/database/user-db.php';
 
 
-// Déterminer si le formulaire a été soumis
-// Utilisation d'une variable superglobale $_SERVER
-// $_SERVER : tableau associatif contenant des informations sur la requête HTTP
 $erreurs = [];
 $pseudo_utilisateur = "";
 $email_utilisateur = "";
 $mdp_utilisateur = "";
-$mdp_verification_utilisateur = "";
+$mdp_verification = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Le formulaire a été soumis !
-    // Traiter les données du formulaire
-    // Récupérer les valeurs saisies par l'utilisateur
-    // Superglobale $_POST : tableau associatif
+
     $pseudo_utilisateur = $_POST['pseudo_utilisateur'];
     $email_utilisateur = $_POST['email_utilisateur'];
     $mdp_utilisateur = $_POST['mdp_utilisateur'];
-    $mdp_verification_utilisateur = $_POST['confirm_mdp_utilisateur'];
+    $mdp_verification = $_POST['mdp_verification'];
+    print_r($_POST);
     //Validation des données
     if (empty($pseudo_utilisateur)) {
         $erreurs['pseudo_utilisateur'] = "Le pseudo est obligatoire";
@@ -34,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($mdp_utilisateur)) {
         $erreurs['mdp_utilisateur'] = "Le mot de passe est obligatoire";
     }
-    if (empty($mdp_verification_utilisateur)) {
-        $erreurs['confirm_mdp_utilisateur'] = "La confirmation du mot de passe est obligatoire";
+    if (empty($mdp_verification)) {
+        $erreurs['mdp_verification'] = "La confirmation du mot de passe est obligatoire";
     }
-    if ($mdp_utilisateur != $mdp_verification_utilisateur) {
+    if ($mdp_utilisateur != $mdp_verification) {
         $erreurs['mdp_utilisateur'] = "Vous devez mettre le même mot de passe";
-        $erreurs['confirm_mdp_utilisateur'] = "Vous devez mettre le même mot de passe";
+        $erreurs['mdp_verification'] = "Vous devez mettre le même mot de passe";
     }
     if (strlen($mdp_utilisateur) > 14 || strlen($mdp_utilisateur) < 8) {
         $erreurs['mdp_utilisateur'] = "Votre mot de passe doit contenir entre 8 et 14 caractères";
@@ -53,14 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (getUser($email_utilisateur)) {
             $erreurs['email_utilisateur'] = "L'email est déjà associé à un compte";
         } else {
-            // email n'existe pas
 
-
-            // Traiter les données
             if (empty($erreurs)) {
                 postUser($pseudo_utilisateur, $email_utilisateur, $mdp_utilisateur);
-
-                // Rediriger l'utilisateur vers une autre page du site
+                session_start();
+                $_SESSION["utilisateur"] = [
+                    "pseudo_utilisateur" => $pseudo_utilisateur,
+                    "email_utilisateur" => $email_utilisateur,
+                    "mdp_utilisateur" => $mdp_utilisateur
+                ];
                 header("Location: /index.php");
                 exit();
             }
@@ -198,11 +194,15 @@ require_once BASE_PROJET . '/src/_partials/header.php';
                 <label for="mdp_verification" class="form-label">Confirmez votre mot de passe*</label>
                 <input type="password"
                        class="form-control <?= (isset($erreurs['mdp_verification'])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdp_verification" name="mdp_verification" value="<?= $mdp_verification_utilisateur ?>"
+                       id="mdp_verification" name="mdp_verification"
+                       value="<?= $mdp_verification ?>"
                        placeholder="Confirmez votre mot de passe"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['mdp_verification'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp_verification'] ?></p>
+                <?php else: ?>
+                    <!-- Afficher un message par défaut si la clé n'est pas définie -->
+                    <p class="form-text text-danger">La confirmation du mot de passe est obligatoire</p>
                 <?php endif; ?>
 
             </div>

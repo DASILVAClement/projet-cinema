@@ -18,7 +18,6 @@ $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
     $utilisateur = $_SESSION["utilisateur"];
 }
-
 ?>
 
 <!doctype html>
@@ -39,9 +38,11 @@ if (isset($_SESSION["utilisateur"])) {
 require_once BASE_PROJET . '/src/_partials/header.php';
 ?>
 
-<?php if ($utilisateur) : ?>
-    <p class="text-white">Bienvenue <?= $utilisateur["pseudo_utilisateur"] ?> </p>
-<?php endif; ?>
+<div class="container">
+    <?php if ($utilisateur) : ?>
+        <p class="text-white">Bienvenue <?= $utilisateur["pseudo_utilisateur"] ?> </p>
+    <?php endif; ?>
+</div>
 
 <div class="container bg-white rounded-3">
 
