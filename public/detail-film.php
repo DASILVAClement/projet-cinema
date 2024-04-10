@@ -1,9 +1,11 @@
 <?php
+
 session_start();
 
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
 require_once BASE_PROJET . '/src/database/utilisateur-db.php';
+require_once BASE_PROJET . '/src/database/commentaire-db.php';
 require_once BASE_PROJET . '/src/fonction/fonction_duree.php';
 
 $id_film = null;
@@ -13,12 +15,15 @@ if (isset($_GET['id_film'])) {
 
 $id = getFilmId($id_film);
 
+$commentaires = getCommentaire($id_film);
 
 $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
     $utilisateur = $_SESSION["utilisateur"];
 }
+
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -94,29 +99,52 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 
 <main>
     <div class="container bg-white rounded-3">
+        <div class="row border-bottom border-3 border-warning">
+            <div class="row">
 
-        <h1 class="border-bottom border-3 border-warning mt-4">Commentaires</h1>
-        <div class="table d-flex text-center">
-            <?php if (empty($_SESSION)) : ?>
+                <h1 class="mt-4 col-10">Commentaires</h1>
 
+                <?php if ($_SESSION) : ?>
 
-                <a class="nav-link" href="<?php BASE_PROJET ?>/connexion-compte.php">
-                    <button type="button" class="btn btn-warning border-2 text-black rounded-3">Connecté pour
-                        ajouter un commentaire
-                    </button>
-                </a>
+                    <a href="ajout-commentaire.php?id_film=<?= $film["id_film"] ?>"
+                       class="col-2 mt-4 mb-3 btn btn-warning">Ajouter un
+                        commentaire</a>
 
-
-            <?php else : ?>
-
-                <a class="nav-link " href="<?php BASE_PROJET ?>/ajout-commentaire.php">
-                    <button type="button" class="btn btn-warning border-2 text-black rounded-3">Ajouter un commentaire
-                    </button>
-                </a>
-
-            <?php endif; ?>
-
+                <?php endif; ?>
+            </div>
         </div>
+
+
+        <?php foreach ($commentaires as $commentaire) : ?>
+
+            <div class="container">
+
+                <ul class="list-group">
+
+                    <li class="list-group-item border-warning border-2 mt-3">
+                        <div class="row">
+                            <p class="col-9 fs-4 fw-bold"><?= $commentaire["titre_commentaire"] ?></p>
+                            <p class="col-3">Avis écrit
+                                le <?= date("d/m/Y", strtotime($commentaire['date_commentaire'])) ?>
+                                à <?= date("H:i:s", strtotime($commentaire['heure_commentaire'])) ?></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-10"><?= $commentaire["avis_commentaire"] ?></p>
+                            <h5 class="col-1 btn btn-warning rounded-5"><?= $commentaire["note_commentaire"] ?><i
+                                        class="bi bi-star"></i></h5>
+                        </div>
+
+                        <p>Cet avis a été écrit
+                            par <?= getPseudo($commentaire['id_utilisateur'])['pseudo_utilisateur'] ?></p>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        <?php endforeach; ?>
+
 </main>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>

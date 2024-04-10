@@ -1,8 +1,13 @@
 <?php
 
+session_start();
+
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/utilisateur-db.php';
 
+if (!empty($_SESSION)) {
+    header("Location: index.php");
+}
 
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
@@ -28,9 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif (!filter_var($email_utilisateur, FILTER_VALIDATE_EMAIL)) {
         $erreurs['email_utilisateur'] = "L'email n'est pas valide";
     }
-    if (empty($mdp_utilisateur)) {
-        $erreurs['mdp_utilisateur'] = "Le mot de passe est obligatoire";
-    }
     if (empty($mdp_verification)) {
         $erreurs['mdp_verification'] = "La confirmation du mot de passe est obligatoire";
     }
@@ -41,7 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (strlen($mdp_utilisateur) > 14 || strlen($mdp_utilisateur) < 8) {
         $erreurs['mdp_utilisateur'] = "Votre mot de passe doit contenir entre 8 et 14 caractères";
     }
-    if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#', $mdp_utilisateur)) {
+    if (empty($mdp_utilisateur)) {
+        $erreurs['mdp_utilisateur'] = "Le mot de passe est obligatoire";
+    } elseif (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#', $mdp_utilisateur)) {
         $erreurs['mdp_utilisateur'] = "Votre mot de passe doit contenir un chiffre, une minuscule, un caractère spécial et une majuscule";
     } else {
 
@@ -53,18 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if (empty($erreurs)) {
                 postUser($pseudo_utilisateur, $email_utilisateur, $mdp_utilisateur);
-                session_start();
-                $_SESSION["utilisateur"] = [
-                    "pseudo_utilisateur" => $pseudo_utilisateur,
-                    "email_utilisateur" => $email_utilisateur,
-                    "mdp_utilisateur" => $mdp_utilisateur
-                ];
-                header("Location: /index.php");
+
+                header("Location: /connexion-compte.php");
                 exit();
             }
         }
     }
 }
+
 ?>
 
 <!doctype html>
@@ -210,6 +210,8 @@ require_once BASE_PROJET . '/src/_partials/header.php';
                 <?php endif; ?>
 
             </div>
+
+            <p>* Champs obligatoires</p>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-light ">Valider</button>

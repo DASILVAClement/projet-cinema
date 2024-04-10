@@ -2,8 +2,10 @@
 
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
+require_once BASE_PROJET . '/src/database/commentaire-db.php';
 
 session_start();
+
 if (empty($_SESSION)) {
     header("Location: index.php");
 }
@@ -13,10 +15,13 @@ if (isset($_SESSION["utilisateur"])) {
     $utilisateur = $_SESSION["utilisateur"];
 }
 
+$id_film = null;
+if (isset($_GET['id_film'])) {
+    $id_film = filter_var($_GET['id_film'], FILTER_VALIDATE_INT);
+}
 
-// Déterminer si le formulaire a été soumis
-// Utilisation d'une variable superglobale $_SERVER
-// $_SERVER : tableau associatif contenant des informations sur la requête HTTP
+$id = getFilmId($id_film);
+
 $erreurs = [];
 $titre_commentaire = "";
 $avis_commentaire = "";
@@ -30,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $titre_commentaire = $_POST['titre_commentaire'];
     $avis_commentaire = $_POST['avis_commentaire'];
     $note_commentaire = $_POST['note_commentaire'];
-    $date_commentaire = '2024/04/08';
 
 
     //Validation des données
@@ -50,13 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Traiter les données
     if (empty($erreurs)) {
-        postCommentaire($titre_commentaire, $avis_commentaire, $note_commentaire, $date_commentaire, $utilisateur["id_utilisateur"]);
-        // Rediriger l'utilisateur vers une autre page du site
+        postCommentaire($titre_commentaire, $avis_commentaire, $note_commentaire, date("Y/m/d"), date("H:i:s"), $utilisateur["id_utilisateur"], $id['id_film']);
+
         header("Location: /index.php");
         exit();
     }
 }
-
 
 ?>
 
@@ -68,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <title>FILM.COM</title>
 </head>
@@ -85,7 +89,10 @@ require_once BASE_PROJET . '/src/_partials/header.php';
         <p class="text-white mt-3">Bienvenue <?= $utilisateur["pseudo_utilisateur"] ?> </p>
     <?php endif; ?>
 
-    <h1 class="text-white border-2 border-bottom border-warning">Ajouter un commentaire</h1>
+    <?php if ($id) : ?>
+
+    <h1 class="text-white border-2 border-bottom border-warning">Ajouter un commentaire
+        pour <?= $id['titre_film'] ?></h1>
 
     <div class="w-50 mx-auto shadow my-5 p-4 bg-warning rounded-5">
         <div class="text-center">
@@ -123,7 +130,7 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 
             <div class="mb-3">
 
-                <label for="note_commentaire" class="form-label">Durée*</label>
+                <label for="note_commentaire" class="form-label">Note*</label>
                 <input type="number"
                        class="form-control <?= (isset($erreurs['note_commentaire'])) ? "border border-2 border-danger" : "" ?>"
                        id="note_commentaire"
@@ -135,9 +142,19 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 
             </div>
 
+            <p>* Champs obligatoires</p>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-light ">Valider</button>
             </div>
+
+            <?php elseif (getFilmId($id_film) == null) : ?>
+
+                <div>
+                    <div>Film introuvable...</div>
+                </div>
+
+            <?php endif; ?>
 
         </form>
     </div>

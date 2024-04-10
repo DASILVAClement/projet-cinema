@@ -35,6 +35,15 @@
                             </a>
                         </li>
                     <?php else : ?>
+
+                        <li class="nav-item rounded-3">
+                            <a class="nav-link" href="<?php BASE_PROJET ?>/index.php">
+                                <button type="button" class="btn btn-warning border-2 text-black rounded-3">Liste des
+                                    films
+                                </button>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php BASE_PROJET ?>/creation-film.php">
                                 <button type="button" class="btn btn-warning border-2 text-black rounded-3">Ajouter un
@@ -42,12 +51,7 @@
                                 </button>
                             </a>
                         </li>
-                        <li class="nav-item rounded-3">
-                            <a class="nav-link" href="<?php BASE_PROJET ?>/index.php">
-                                <button type="button" class="btn btn-warning border-2 text-black rounded-3">Liste des
-                                    films
-                                </button>
-                            </a>
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php BASE_PROJET ?>/deconnexion-compte.php">
                                 <button type="button" class="btn btn-warning border-2 text-black rounded-3">
@@ -55,6 +59,7 @@
                                 </button>
                             </a>
                         </li>
+
                     <?php endif; ?>
 
                 </ul>

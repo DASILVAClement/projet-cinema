@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/utilisateur-db.php';
 
@@ -124,7 +126,7 @@ require_once BASE_PROJET . '/src/_partials/header.php';
                 <input type="email"
                        class="form-control <?= (isset($erreurs['email_utilisateur'])) ? "border border-2 border-danger" : "" ?>"
                        id="email_utilisateur"
-                       name="email_utilisateur" value="<?= ($erreurs) ? "" : $email_utilisateur ?>"
+                       name="email_utilisateur" value="<?= (!empty($erreurs)) ? $email_utilisateur : "" ?>"
                        placeholder="Saisir votre email"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['email_utilisateur'])) : ?>

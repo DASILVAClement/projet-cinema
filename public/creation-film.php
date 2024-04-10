@@ -4,6 +4,7 @@ require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
 
 session_start();
+
 if (empty($_SESSION)) {
     header("Location: index.php");
 }
@@ -81,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <title>FILM.COM</title>
 </head>
@@ -120,7 +122,7 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 
             <div class="mb-3">
 
-                <label for="duree_film" class="form-label">Durée*</label>
+                <label for="duree_film" class="form-label">Durée (en minutes)*</label>
                 <input type="number"
                        class="form-control <?= (isset($erreurs['duree_film'])) ? "border border-2 border-danger" : "" ?>"
                        id="duree_film"
@@ -186,6 +188,8 @@ require_once BASE_PROJET . '/src/_partials/header.php';
                 <?php endif; ?>
 
             </div>
+
+            <p>* Champs obligatoires</p>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-light ">Valider</button>
