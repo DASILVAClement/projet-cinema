@@ -53,4 +53,19 @@ function postFilm($titre_film, $duree_film, $resume_film, $date_sortie, $pays_so
 
 }
 
+function getFilmUser(?int $id_utilisateur) : array|bool
+{
+    $pdo=getConnexion();
+// 2. Préparation de la requête
+    $requete = $pdo->prepare( "SELECT * FROM film WHERE id_utilisateur = :id");
+
+// 3. Lier le paramètre
+    $requete->bindValue(':id', $id_utilisateur);
+
+// 4. Exécution de la requête
+    $requete->execute();
+
+    return $requete->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>

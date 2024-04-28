@@ -26,52 +26,17 @@ function postCommentaire($titre_commentaire, $avis_commentaire, $note_commentair
 function getCommentaire($id_film): array
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare("SELECT * FROM commentaire WHERE id_film=$id_film");
+    $requete = $pdo->prepare("SELECT * FROM commentaire WHERE id_film=$id_film ORDER BY date_commentaire DESC,heure_commentaire DESC");
     $requete->execute();
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function genererEvaluation($note)
+function getMoyenneNoteEtCommentaire($id_film) : array
 {
-    // Vérifier que la note est dans la plage valide (0 à 5)
-    if ($note < 0 || $note > 5) {
-        return "Note invalide. La note doit être comprise entre 0 et 5.";
-    }
+    $pdo=getConnexion();
+    $requete = $pdo->prepare( "SELECT ROUND(AVG(note_commentaire), 1) AS 'moyenne_note', COUNT(note_commentaire) AS 'nombre_commentaire' FROM commentaire WHERE id_film=$id_film");
+    $requete->execute();
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
 
-
-    // Nombre d'étoiles pleines à afficher
-    $fullStars = floor($note);
-
-
-    // Vérifier s'il faut afficher une demi-étoile
-    $hasHalfStar = ($note - $fullStars) >= 0.5;
-
-
-    // Construction de la chaîne HTML des étoiles
-    $starsHTML = '';
-
-
-    // Ajout des étoiles pleines
-    for ($i = 0; $i < $fullStars; $i++) {
-        $starsHTML .= '<i class="bi bi-star-fill"></i>';
-    }
-
-
-    // Ajout de la demi-étoile si nécessaire
-    if ($hasHalfStar) {
-        $starsHTML .= '<i class="bi bi-star-half"></i>';
-        $fullStars++; // Augmenter le compteur d'étoiles pleines ajoutées
-    }
-
-
-    // Ajout des étoiles vides restantes
-    $emptyStars = 5 - $fullStars; // Calculer le nombre d'étoiles vides restantes
-    for ($i = 0; $i < $emptyStars; $i++) {
-        $starsHTML .= '<i class="bi bi-star"></i>';
-    }
-
-
-    // Retourner la chaîne HTML complète des étoiles
-    return $starsHTML;
 }
 

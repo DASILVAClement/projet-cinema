@@ -34,13 +34,14 @@ function getMotDePasse($email_utilisateur): array|bool
     return $mdp;
 }
 
-function getPseudo($id_utilisateur): array
+function getPseudo($id_utilisateur): ?array
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare("SELECT pseudo_utilisateur FROM utilisateur WHERE id_utilisateur=?");
-    $requete->execute([$id_utilisateur]);
-    $pseudo_utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
-    return $pseudo_utilisateur;
+    $requete_pseudo = $pdo->prepare("SELECT pseudo_utilisateur FROM utilisateur WHERE id_utilisateur=?");
+    $requete_pseudo->execute([$id_utilisateur]);
+    $pseudo_utilisateur = $requete_pseudo->fetch(PDO::FETCH_ASSOC);
+    return $pseudo_utilisateur ? $pseudo_utilisateur : null;
 }
+
 
 ?>

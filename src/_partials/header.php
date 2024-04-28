@@ -44,6 +44,14 @@
                             </a>
                         </li>
 
+                        <li class="nav-item rounded-3">
+                            <a class="nav-link" href="<?php BASE_PROJET ?>/film-utilisateur.php">
+                                <button type="button" class="btn btn-warning border-2 text-black rounded-3">Liste de mes
+                                    films
+                                </button>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php BASE_PROJET ?>/creation-film.php">
                                 <button type="button" class="btn btn-warning border-2 text-black rounded-3">Ajouter un

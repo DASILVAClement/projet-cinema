@@ -7,6 +7,7 @@ require_once BASE_PROJET . '/src/database/film-db.php';
 require_once BASE_PROJET . '/src/database/utilisateur-db.php';
 require_once BASE_PROJET . '/src/database/commentaire-db.php';
 require_once BASE_PROJET . '/src/fonction/fonction_duree.php';
+require_once BASE_PROJET . '/src/fonction/fonction-etoile-avis.php';
 
 $id_film = null;
 if (isset($_GET['id_film'])) {
@@ -21,6 +22,8 @@ $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
     $utilisateur = $_SESSION["utilisateur"];
 }
+
+$moyenne_nb_commentaires = getMoyenneNoteEtCommentaire($id_film);
 
 ?>
 
@@ -63,6 +66,25 @@ require_once BASE_PROJET . '/src/_partials/header.php';
             </div>
 
             <div class="mt-3 text-black bg-white p-4 text-start">
+
+                <?php foreach ($moyenne_nb_commentaires as $moyenne_nb_commentaire) : ?>
+
+                    <p><?= $moyenne_nb_commentaire["moyenne_note"] ?>
+                        <?= genererEtoiles($moyenne_nb_commentaire["moyenne_note"]) ?>
+
+                        <?php
+                        if ($moyenne_nb_commentaire["nombre_commentaire"] == null) {
+                            echo "Aucun commentaire pour ce film...";
+
+                        }elseif ($moyenne_nb_commentaire["nombre_commentaire"] == 1) {
+                            echo $moyenne_nb_commentaire["nombre_commentaire"] ." commentaire";
+
+                        }elseif ($moyenne_nb_commentaire["nombre_commentaire"] >1) {
+                            echo $moyenne_nb_commentaire["nombre_commentaire"] ." commentaires";
+
+                        }?>
+                    </p>
+                <?php endforeach; ?>
 
                 <p><i class="bi bi-camera-reels-fill"></i><span
                             class='fw-bold'>Titre du film : </span><?= $film['titre_film'] ?></p>
