@@ -103,7 +103,10 @@ require_once BASE_PROJET . '/src/_partials/header.php';
                 <h5 class="fw-semibold">Synopsis du film :</h5>
                 <p class="fst-italic"><?= $film['resume_film'] ?></p>
 
-                <p class='fw-bold'>Film crée par : </p><?php $utilisateur = getPseudo($film['id_utilisateur']);
+                <p class='fw-bold'>Film crée par : </p>
+                <?php
+                $id_utilisateur = isset($film['id_utilisateur']) ? $film['id_utilisateur'] : null;
+                $utilisateur = getPseudo($id_utilisateur);
                 echo $utilisateur["pseudo_utilisateur"];
                 elseif (getFilmId($id_film) == null) : ?>
 
