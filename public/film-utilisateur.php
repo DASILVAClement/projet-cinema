@@ -14,7 +14,7 @@ $films = getFilms();
 
 $utilisateur = null;
 if (isset($_SESSION["utilisateur"])) {
-    $utilisateur=$_SESSION["utilisateur"];
+    $utilisateur = $_SESSION["utilisateur"];
 }
 
 if (empty($_SESSION)) {
@@ -39,7 +39,7 @@ $nbFilms = 0;
 require_once BASE_PROJET . '/src/_partials/header.php';
 ?>
 
-<body class="bg-dark" >
+<body class="bg-dark">
 
 <div class="container">
     <?php if ($utilisateur) : ?>
@@ -51,32 +51,30 @@ require_once BASE_PROJET . '/src/_partials/header.php';
 
     <h1 class="border-bottom border-3 border-warning mt-4 text-white">Listes de vos films</h1>
 
-    <div class="row text-center " href="#home">
-        <?php foreach ($films as $film) : ?>
-            <?php if ($film['id_utilisateur'] == $utilisateur['id_utilisateur']) :  ?>
-                <?php $films = getFilmUser($film['id_utilisateur']); ?>
-                <?php $nbFilms = 1; ?>
 
-                <div class="card rounded-4  mb-4 me-2" style="max-width: 20rem ">
-                    <div class="card-body ">
-                        <h4 class="card-title"><img src="<?= $film["image"] ?>" alt=""</h4>
-                        <p class="card-text fs-4 text-dark" ><?= $film["titre"] ?></p>
-                        <p class="fs-5 text-dark"> <?= "<i class='bi bi-hourglass-split '></i>".convertirEnHeuresMinutes($film["duree"])  ?></p>
-                        <p class="card-text">
-                            <a class="btn " style="background-color: #86C232 " role="button"
-                               href="detail-film.php?id_film=<?= $film['id_film'] ?>
-                        ">Détails du film</a></p>
+    <?php foreach ($films as $film) : ?>
 
-                    </div>
+        <?php if ($film['id_utilisateur'] == $utilisateur['id_utilisateur']) : ?>
+
+            <?php $films = getFilmUser($film['id_utilisateur']); ?>
+
+            <div class="container card col-xs-12 col-md-6 col-lg-4 col-xl-3 mt-4 mb-4 rounded-5"
+                 style="width: 18rem">
+                <div class="card-body text-center">
+                    <h3 class="fs-4 fw-bold"><?= $film["titre_film"] ?></h3>
+                    <a href="detail-film.php?id_film=<?= $film["id_film"] ?>"><img
+                                style="width: 175px; height: 250px" src="<?= $film["image_film"] ?>"
+                                alt="<?= $film["titre_film"] ?>" class="img-fluid"></a>
+                    <br>
+                    <h6 class="card-title mt-2 fst-italic"><?= convertirEnHeuresMinutes($film["duree_film"]) ?></h6>
+                    <a href="detail-film.php?id_film=<?= $film["id_film"] ?>" class="btn bg-warning ">En
+                        savoir plus</a>
                 </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            </div>
 
-        <?php if ($nbFilms==0) : ?>
-            <div class="loader"></div>
         <?php endif; ?>
+    <?php endforeach; ?>
 
-    </div>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
